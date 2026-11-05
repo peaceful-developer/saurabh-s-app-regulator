@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="Theme.SAR" parent="android:Theme.Material.NoActionBar">
-        <item name="android:windowBackground">#FF05070F</item>
+        <item name="android:windowBackground">@color/bg_base</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:colorAccent">@color/cyan</item>
+    </style>
+
+    <style name="Theme.SAR.Block">
+        <item name="android:windowAnimationStyle">@null</item>
     </style>
 </resources>

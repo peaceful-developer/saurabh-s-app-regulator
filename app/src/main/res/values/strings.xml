@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SAR</string>
+    <string name="accessibility_label">SAR app blocker</string>
+    <string name="accessibility_summary">Shows the block screen when a limited app opens.</string>
+    <string name="accessibility_description">SAR (Saurabh\'s App Regulator) is told only which app comes to the front, so it can cover apps you limited in the running mode. It never reads what is on the screen and sends nothing anywhere.</string>
+</resources>
