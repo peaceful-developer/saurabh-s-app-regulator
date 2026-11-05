@@ -8,6 +8,7 @@ import android.content.IntentFilter
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
 import android.view.inputmethod.InputMethodManager
+import androidx.core.content.ContextCompat
 import com.saurabh.sar.SarApp
 import com.saurabh.sar.core.engine.Decision
 import kotlinx.coroutines.flow.first
@@ -49,11 +50,11 @@ class SarAccessibilityService : AccessibilityService() {
             onWarning = { pkg, m -> app.notifications.showWarning(app.installedApps.label(pkg), m) },
         )
         app.controller.foregroundListener = tracker
-        registerReceiver(screenReceiver, IntentFilter().apply {
+        ContextCompat.registerReceiver(this, screenReceiver, IntentFilter().apply {
             addAction(Intent.ACTION_SCREEN_OFF)
             addAction(Intent.ACTION_SCREEN_ON)
             addAction(Intent.ACTION_USER_PRESENT)
-        })
+        }, ContextCompat.RECEIVER_NOT_EXPORTED)
         app.notifications.cancelBlockingOff()
         app.scope.launch {
             warnings = app.settings.settings.first().warningMinutes
