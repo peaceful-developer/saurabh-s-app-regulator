@@ -19,9 +19,9 @@ class ModeDraft(original: Mode, schedule: List<ScheduleEntry>, rules: List<AppRu
     val rules = mutableStateMapOf<String, AppRule>().apply { rules.forEach { put(it.packageName, it) } }
 
     fun toBundle(): ModeBundle = ModeBundle(
-        mode,
-        if (mode.type == ModeType.SCHEDULED) schedule.toList() else emptyList(),
-        rules.values.toList(),
+        mode = mode,
+        rules = rules.values.toList(),
+        schedule = if (mode.type == ModeType.SCHEDULED) schedule.toList() else emptyList(),
     )
 
     companion object {

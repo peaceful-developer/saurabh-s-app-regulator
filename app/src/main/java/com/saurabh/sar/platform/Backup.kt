@@ -75,7 +75,7 @@ object Backup {
                 AppRule(packageName = it.getString("package"), type = RuleType.valueOf(it.getString("type")),
                     allowanceMin = intOrNull(it, "allowanceMin"), capMin = intOrNull(it, "capMin"), breakMin = intOrNull(it, "breakMin"))
             }.filter { it.packageName in installed } }
-            ModeBundle(mode, sched, rules)
+            ModeBundle(mode = mode, rules = rules, schedule = sched)
         }
         app.repository.saveModes(bundles)
         app.controller.onModesChanged()

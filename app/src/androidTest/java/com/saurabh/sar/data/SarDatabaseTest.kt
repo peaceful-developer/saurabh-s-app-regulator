@@ -35,8 +35,8 @@ class SarDatabaseTest {
     @Test fun modeBundleRoundTrip() = runTest {
         val id = repo.saveMode(ModeBundle(
             Mode(name = "Office Work", type = ModeType.SCHEDULED, message = "Focus."),
-            listOf(ScheduleEntry(daysMask = ScheduleEntry.MON_FRI, startMinute = 540, endMinute = 1080)),
-            listOf(AppRule(packageName = "ig", type = RuleType.LIMIT, allowanceMin = 15, capMin = 10, breakMin = 5)),
+            schedule = listOf(ScheduleEntry(daysMask = ScheduleEntry.MON_FRI, startMinute = 540, endMinute = 1080)),
+            rules = listOf(AppRule(packageName = "ig", type = RuleType.LIMIT, allowanceMin = 15, capMin = 10, breakMin = 5)),
         ))
         assertThat(repo.mode(id)!!.name).isEqualTo("Office Work")
         assertThat(repo.schedulesByMode()[id]!!.single().endMinute).isEqualTo(1080)
@@ -56,8 +56,8 @@ class SarDatabaseTest {
     }
 
     @Test fun deletingAModeKeepsHistory() = runTest {
-        val modeId = repo.saveMode(ModeBundle(Mode(name = "X", type = ModeType.MANUAL, message = "m"), emptyList(),
-            listOf(AppRule(packageName = "a", type = RuleType.BLOCK))))
+        val modeId = repo.saveMode(ModeBundle(Mode(name = "X", type = ModeType.MANUAL, message = "m"),
+            rules = listOf(AppRule(packageName = "a", type = RuleType.BLOCK)), schedule = emptyList()))
         val run = repo.insertRun(Run(modeId = modeId, startedAt = 1, endedAt = 2, locked = false, endReason = EndReason.STOPPED), "X")
         repo.deleteMode(modeId)
         assertThat(repo.rulesFor(modeId)).isEmpty()
